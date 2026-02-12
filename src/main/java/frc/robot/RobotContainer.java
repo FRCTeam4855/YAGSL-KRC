@@ -15,9 +15,11 @@ import swervelib.SwerveInputStream;
 import java.io.File;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -82,7 +84,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_driverController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
-    m_driverController.button(3).onTrue(Commands.run(() -> toggleFieldOriented()));
+    m_rotController.button(2).onTrue(Commands.run(() -> toggleFieldOriented()));
+    m_driverController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
+    m_rotController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
+    m_driverController.button(4).whileTrue(drivebase.strafeLeft());
+    m_driverController.button(5).whileTrue(drivebase.strafeRight());
   }
 
   /**
