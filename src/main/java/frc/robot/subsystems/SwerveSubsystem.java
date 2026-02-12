@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Meter;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
@@ -489,6 +488,18 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return run(() -> {
       swerveDrive.driveFieldOriented(velocity.get());
+    });
+  }
+
+  /**
+   * Drive the robot given a chassis Robot oriented velocity.
+   *
+   * @param velocity Velocity according to the robot.
+   */
+  public Command driveRobotOriented(Supplier<ChassisSpeeds> velocity)
+  {
+    return run(() -> {
+      swerveDrive.drive(velocity.get());
     });
   }
 
