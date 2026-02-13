@@ -35,7 +35,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   
-  private static boolean FieldOriented = true;
+  public static boolean FieldOriented = true;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_driverController =
@@ -52,8 +52,8 @@ public class RobotContainer {
     configureBindings();
 
     SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getY() * -1,
-                                                                () -> m_driverController.getX() * -1)
+                                                                () -> m_driverController.getY() * 1,
+                                                                () -> m_driverController.getX() * 1)
                                                             .withControllerRotationAxis(() -> m_rotController.getX() * -1)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -63,14 +63,15 @@ public class RobotContainer {
                                                                                                m_driverController::getY)
                                                            .headingWhile(true);
 
-    Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveRobotOrientedAngularVelocity = drivebase.driveRobotOriented(driveAngularVelocity);
-    Command driveRobotOrientedDirectAngle = drivebase.driveRobotOriented(driveDirectAngle);
-
-    // Default to the appropriate angular-velocity driving command based on the FieldOriented flag
-    Command condDriveAngularVelocity = FieldOriented ? driveFieldOrientedAngularVelocity : driveRobotOrientedAngularVelocity;
-    drivebase.setDefaultCommand(condDriveAngularVelocity);
+    drivebase.setDefaultCommand(
+      drivebase.run(()-> {
+        if(FieldOriented) {
+          drivebase.getSwerveDrive().driveFieldOriented(driveAngularVelocity.get());
+        } else {
+          drivebase.getSwerveDrive().drive(driveAngularVelocity.get());
+        }
+      })
+    );
   }
 
   /**
@@ -84,7 +85,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_driverController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
-    m_rotController.button(2).onTrue(Commands.run(() -> toggleFieldOriented()));
+    m_rotController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_driverController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
     m_rotController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
     m_driverController.button(4).whileTrue(drivebase.strafeLeft());
