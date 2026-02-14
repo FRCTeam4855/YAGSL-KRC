@@ -108,7 +108,8 @@ public class RobotContainer {
     m_rotController.button(5).whileTrue(drivebase.backward());
 
     //light start
-    //m_driverController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDS(LightsConstants.VIOLET), m_lights));
+    m_driverController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
+    m_driverController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
   }
 
   /**
