@@ -774,4 +774,21 @@ public class SwerveSubsystem extends SubsystemBase
       }
     });
   }
+
+  public Command forward() {
+    return run( () -> {
+      for (SwerveModule module : swerveDrive.getModules()) {
+        module.setDesiredState(new SwerveModuleState(0.5, Rotation2d.fromDegrees(0)), false, true);
+      }
+    });
+  }
+
+   public Command backward() {
+    return run( () -> {
+      for (SwerveModule module : swerveDrive.getModules()) {
+        module.setDesiredState(new SwerveModuleState(0.5, Rotation2d.fromDegrees(180)), false, true);
+      }
+    });
+  } 
+
 }
