@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -84,6 +85,8 @@ public class RobotContainer {
       })
     );
   }
+
+
     public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
@@ -98,6 +101,12 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
+    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
+    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
+    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+
+    
     m_driverController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
     m_rotController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_driverController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
@@ -110,6 +119,8 @@ public class RobotContainer {
     //light start
     m_driverController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
     m_driverController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
+    m_driverController.button(8).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
+    m_driverController.button(9).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
   }
 
   /**
