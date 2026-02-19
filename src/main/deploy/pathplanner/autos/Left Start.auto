@@ -1,0 +1,81 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Start to Depot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Depot Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Representation"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Depot Right to Launching Center"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Launch Representation"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "setX"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Launch Center to Climb"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Climb Representation"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

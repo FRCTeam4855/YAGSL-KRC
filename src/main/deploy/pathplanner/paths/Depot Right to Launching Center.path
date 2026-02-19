@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 4.0
+        "x": 0.4810734463276841,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0,
-        "y": 5.0
+        "x": 1.7109039548022604,
+        "y": 5.354505649717514
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot Right"
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 2.838,
+        "y": 4.038
       },
       "prevControl": {
-        "x": 2.0,
-        "y": 6.0
+        "x": 2.2105225988700568,
+        "y": 4.649915254237288
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Launch"
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Meter Test",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

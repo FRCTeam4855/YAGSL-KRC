@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 4.0
+        "x": 2.838,
+        "y": 4.038
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0,
-        "y": 5.0
+        "x": 1.7429860104614787,
+        "y": 4.571566415392671
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Launch"
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.6724717514124299,
+        "y": 4.624293785310735
       },
       "prevControl": {
-        "x": 2.0,
-        "y": 6.0
+        "x": 2.3557990724150395,
+        "y": 4.273274577866453
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Meter Test",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

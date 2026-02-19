@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 4.0
+        "x": 0.4810734463276841,
+        "y": 7.019901129943503
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0,
-        "y": 5.0
+        "x": 0.4741033699222578,
+        "y": 6.414926200511512
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot Left"
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 0.4810734463276841,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 2.0,
-        "y": 6.0
+        "x": 0.4702692861885523,
+        "y": 5.738085960422131
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot Right"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Meter Test",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

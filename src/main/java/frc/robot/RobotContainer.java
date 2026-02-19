@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -101,26 +102,40 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
-    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
-    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
-    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
 
-    
+    //drivebase commands
     m_driverController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
     m_rotController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_driverController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
-    m_rotController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
+    m_rotController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro 90 offset
+
+    NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
+    
+    //movement commands
     m_driverController.button(4).whileTrue(drivebase.strafeLeft());
     m_driverController.button(5).whileTrue(drivebase.strafeRight());
     m_rotController.button(4).whileTrue(drivebase.forward());
     m_rotController.button(5).whileTrue(drivebase.backward());
 
-    //light start
+    //light commands
     m_driverController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
     m_driverController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
     m_driverController.button(8).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
     m_driverController.button(9).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+
+    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
+    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
+    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
+    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+
+    NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights)
+                                                                .alongWith(new InstantCommand(()-> SmartDashboard.putString("Actively", "Intaking!!!"))));
+
+    NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights)
+                                                                .alongWith(new InstantCommand(()-> SmartDashboard.putString("Actively", "Launching!!!"))));
+
+    NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights)
+                                                                .alongWith(new InstantCommand(()-> SmartDashboard.putString("Actively", "Climbing!!!"))));
   }
 
   /**
