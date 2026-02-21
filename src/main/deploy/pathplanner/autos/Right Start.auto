@@ -7,32 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Start to Depot"
+            "pathName": "Right Start to Outpost"
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Depot Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake Representation"
-                }
-              }
-            ]
+            "waitTime": 4.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Depot Right to Launching Center"
+            "pathName": "Outpost to Launch"
           }
         },
         {
